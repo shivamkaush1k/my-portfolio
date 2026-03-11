@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ project.title }} - Shivam Portfolio{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5 bg-gradient-primary text-white position-relative overflow-hidden">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" class="img-fluid rounded-4 shadow-xl w-100 mb-4" alt="{{ project.title }}" loading="lazy">
+                {% endif %}
+            </div>
+            <div class="col-lg-5 text-center text-lg-start">
+                <span class="badge bg-light text-dark fs-6 px-4 py-3 mb-4 rounded-pill fw-semibold">
+                    {{ project.category|upper|default:"DJANGO PROJECT" }}
+                </span>
+                <h1 class="display-4 fw-bold mb-4">{{ project.title }}</h1>
+                <p class="lead fs-5 mb-4 opacity-90">{{ project.short_description|default:project.description|truncatewords:30 }}</p>
+                
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3 flex-wrap">
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill shadow-lg">
+                        <i class="fab fa-github me-2"></i>View Code
+                    </a>
+                    {% endif %}
+                    {% if project.live_url %}
+                    <a href="{{ project.live_url }}" target="_blank" class="btn btn-light btn-lg px-5 py-3 rounded-pill shadow-lg">
+                        <i class="fas fa-external-link-alt me-2"></i>Live Demo
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'core:projects' %}" class="btn btn-outline-primary btn-lg px-5 py-3 rounded-pill">
+                        <i class="fas fa-th-large me-2"></i>All Projects
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Details -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Overview -->
+                <div class="glassmorphism p-5 rounded-4 shadow-xl mb-5">
+                    <h2 class="fw-bold mb-4 fs-1 gradient-text">Project Overview</h2>
+                    <div class="row g-5">
+                        <div class="col-lg-8">
+                            <div class="project-description">{{ project.description|linebreaks }}</div>
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- Quick Stats -->
+                            <div class="glassmorphism p-4 rounded-3 shadow-lg">
+                                <h5 class="fw-bold mb-4 gradient-text">Project Stats</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-3 d-flex align-items-center">
+                                        <i class="fas fa-calendar text-primary me-3 fs-5"></i>
+                                        <strong>{{ project.created_at|date:"F Y" }}</strong>
+                                    </li>
+                                    {% if project.technologies %}
+                                    <li class="mb-3 d-flex align-items-center">
+                                        <i class="fas fa-code text-primary me-3 fs-5"></i>
+                                        <strong>{{ project.technologies }}</strong>
+                                    </li>
+                                    {% endif %}
+                                    {% if project.client %}
+                                    <li class="d-flex align-items-center">
+                                        <i class="fas fa-user-friends text-primary me-3 fs-5"></i>
+                                        <strong>{{ project.client }}</strong>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech Stack -->
+                {% if project.technologies %}
+                <div class="text-center mb-5">
+                    <h3 class="fw-bold mb-5 fs-2 gradient-text">Tech Stack</h3>
+                    <div class="row g-3 justify-content-center">
+                        {% for tech in project.technologies.split %}
+                        <div class="col-auto">
+                            <span class="badge bg-gradient-primary text-white px-4 py-3 rounded-pill shadow-lg fs-6 hover-scale">
+                                {{ tech }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 text-center bg-dark text-white">
+    <div class="container">
+        <h2 class="display-5 fw-bold mb-4">Build Something Similar?</h2>
+        <p class="lead mb-5 opacity-90">Custom Django + ML solutions for your business</p>
+        <a href="{% url 'contacts:contacts' %}" class="btn btn-light btn-lg px-6 py-3 shadow-lg rounded-pill">
+            <i class="fas fa-envelope me-2"></i>Start Your Project
+        </a>
+    </div>
+</section>
+{% endblock %}

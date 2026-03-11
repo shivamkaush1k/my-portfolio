@@ -1,0 +1,61 @@
+<div class="cert-card">
+
+    <div class="cert-header">
+
+        {% if certification.icon_class %}
+        <div class="cert-icon">
+            <i class="{{ certification.icon_class }}"></i>
+        </div>
+        {% endif %}
+
+        <div class="cert-title">
+
+            <h4>{{ certification.name }}</h4>
+
+            <p class="cert-provider">
+                {{ certification.provider }}
+            </p>
+
+            <span class="cert-date">
+                {{ certification.date_earned|date:"M Y" }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    {% if certification.skills_gained %}
+
+    <div class="cert-skills">
+
+        {% for skill in certification.skills_gained.split|slice:":3" %}
+
+        <span class="skill-tag">
+            {{ skill }}
+        </span>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if certification.verification_url %}
+
+    <div class="cert-actions">
+
+        <a href="{{ certification.verification_url }}"
+           target="_blank"
+           class="cert-button">
+
+            Verify Credential
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>

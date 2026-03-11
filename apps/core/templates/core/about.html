@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About Shivam - Django Portfolio{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="about-hero py-5 bg-gradient-primary">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- Profile Image -->
+      <div class="col-lg-5 text-center">
+        <div class="about-image-wrapper">
+          <img src="{% static '/images/me/me.jpeg' %}" 
+               alt="Shivam - Django Developer"
+               class="about-image img-fluid shadow-lg">
+        </div>
+      </div>
+
+      <!-- About Text -->
+      <div class="col-lg-7">
+
+        <h1 class="display-3 fw-bold mb-4 hero-gradient-text">
+          About Me
+        </h1>
+
+        <p class="lead mb-3">
+          Hi, I'm <strong>Shivam</strong> — a passionate 
+          <strong>Django developer and data science enthusiast</strong>.
+        </p>
+
+        <p class="mb-3">
+          I build scalable web applications, machine learning solutions,
+          and data-driven systems using Django, Python, TensorFlow,
+          MySQL, and modern JavaScript.
+        </p>
+
+        <p class="mb-4">
+          My focus is on writing <strong>clean, maintainable code</strong> 
+          and building production-ready applications.
+        </p>
+
+        <h5 class="fw-bold mb-3">Highlighted Work</h5>
+
+        <ul class="about-projects">
+          <li>
+            <strong>ShopZone:</strong> Full-stack Django e-commerce platform
+            with authentication, payments, and MySQL database.
+          </li>
+          <li>
+            Machine learning workflows for predictive analytics
+            using Jupyter, TensorFlow, and scikit-learn.
+          </li>
+          <li>
+            Automation tools and portfolio projects deployed via GitHub.
+          </li>
+        </ul>
+
+        <p class="mt-4">
+          When I'm not coding, I work on coding challenges, interview prep,
+          and exploring AI automation.
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Education Timeline -->
+<section class="py-5 bg-dark">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold gradient-text display-5">Education</h2>
+    <div class="timeline-container">
+      {% for edu in educations %}
+      <div class="timeline-item {% if not forloop.last %}mb-5{% endif %}">
+        <div class="row align-items-center flex-row-reverse flex-lg-row">
+          <div class="col-lg-2 col-md-3 text-center mb-4 mb-lg-0">
+            <div class="timeline-icon glassmorphism rounded-circle d-flex align-items-center justify-content-center mx-auto shadow-lg" style="width: 80px; height: 80px;">
+              <i class="fas {{ edu.icon }} fa-2x text-primary"></i>
+            </div>
+          </div>
+          <div class="col-lg-10 col-md-9">
+            <div class="timeline-card h-100 glassmorphism p-4 rounded-4 hover-lift shadow-xl">
+              <h4 class="fw-bold mb-2 gradient-text">{{ edu.degree }}</h4>
+              <h6 class="text-light mb-3">{{ edu.institution }}</h6>
+              <p class="text-light-50 mb-3">{{ edu.duration }}</p>
+              {% if edu.description %}<p class="text-muted">{{ edu.description }}</p>{% endif %}
+            </div>
+          </div>
+          {% if not forloop.last %}
+          <div class="timeline-line"></div>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5">
+        <p class="text-muted">No education entries yet. Add via admin.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-dark">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold gradient-text display-5">My Journey</h2>
+    <div class="row text-center g-4">
+      {% for stat in stats %}
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-card p-4 rounded-4 shadow-lg glassmorphism h-100">
+          <h3 class="fw-bold mb-1 text-white display-4">{{ stat.value }}</h3>
+          <p class="text-light-50">{{ stat.label }}</p>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12"><p class="text-muted">No stats yet. Add via admin.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Skills Grid -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold gradient-text display-5">Core Skills</h2>
+    <div class="row g-4 justify-content-center">
+      {% for skill in skills %}
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="skill-card p-4 rounded-4 shadow-lg glassmorphism h-100 hover-lift text-center">
+          <i class="{{ skill.icon }} mb-3" style="font-size: 3rem; color: {{ skill.color_class }};"></i>
+          <h5 class="fw-bold mb-3">{{ skill.name }}</h5>
+          <div class="skill-progress mt-3">
+            <div class="skill-bar" data-width="{{ skill.proficiency }}"></div>
+          </div>
+          <small class="muted-block">{{ skill.proficiency }}%</small>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center">No skills yet. Add via admin.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section class="py-5 bg-dark">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold gradient-text display-5">Certifications</h2>
+    <div class="row g-4">
+      {% for cert in certifications %}
+      <div class="col-lg-4 col-md-6">
+        <div class="cert-card h-100 glassmorphism rounded-4 hover-lift p-4 shadow-xl">
+          <div class="text-center mb-4">
+            <div class="cert-icon mb-3">
+              <i class="fas fa-certificate fa-2x text-primary"></i>
+            </div>
+            <h4 class="fw-bold mb-2">{{ cert.name }}</h4>
+            <p class="text-muted mb-0 cert-provider">{{ cert.provider }}</p>
+          </div>
+          {% if cert.verification_url %}
+          <a href="{{ cert.verification_url }}" class="btn btn-primary w-100 cert-button" target="_blank">
+            <i class="fas fa-external-link-alt me-2"></i>Verify Certificate
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5">
+        <p class="text-muted">No certifications yet. Add via admin.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Digital Badges -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold gradient-text display-5">Digital Badges</h2>
+    <div class="row g-4">
+      {% for badge in badges %}
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="badge-card h-100 glassmorphism rounded-4 hover-lift text-center p-4 shadow-lg">
+          {% if badge.image %}
+          <div class="badge-image mb-3">
+            <img src="{{ badge.image.url }}" alt="{{ badge.name }}" class="img-fluid rounded-3">
+          </div>
+          {% else %}
+          <div class="badge-icon mb-3">
+            <i class="fas fa-medal fa-3x text-warning"></i>
+          </div>
+          {% endif %}
+          <h6 class="fw-bold mb-2">{{ badge.name }}</h6>
+          {% if badge.skill %}
+          <p class="small-muted">{{ badge.skill }}</p>
+          {% endif %}
+          {% if badge.issuer %}
+          <p class="text-muted small mb-1">{{ badge.issuer }}</p>
+          {% endif %}
+          {% if badge.verification_url %}
+          <a href="{{ badge.verification_url }}" class="btn btn-sm btn-outline-warning w-100 badge-btn" target="_blank">
+            <i class="fas fa-eye me-1"></i>View Badge
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5">
+        <p class="text-muted">No badges yet. Add via admin.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-center bg-primary">
+  <div class="container">
+    <h2 class="display-4 fw-bold mb-4 text-white">Ready to Collaborate?</h2>
+    <a href="{% url 'contacts:contacts' %}" class="btn btn-light btn-lg px-5 py-3 shadow-lg hover-lift">Get In Touch</a>
+  </div>
+</section>
+{% endblock %}

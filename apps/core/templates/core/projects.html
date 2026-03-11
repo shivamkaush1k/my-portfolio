@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects - Shivam Portfolio{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="py-5 bg-gradient-primary text-white text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3">All Projects</h1>
+        <p class="lead mb-2">{{ projects|length }} Django & ML Projects</p>
+        <small class="text-white-50">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</small>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-lg-6 col-xl-4">
+                <div class="project-card h-100 shadow-xl rounded-4 overflow-hidden hover-lift glassmorphism">
+                    {% if project.image %}
+                    <div class="position-relative overflow-hidden">
+                        <img src="{{ project.image.url }}" class="w-100 h-48 object-fit-cover" alt="{{ project.title }}" loading="lazy">
+                        <span class="position-absolute top-3 end-3 badge rounded-pill px-3 py-2 bg-primary shadow-lg">
+                            {{ project.category|default:"Django" }}
+                        </span>
+                    </div>
+                    {% endif %}
+                    <div class="p-5">
+                        <h3 class="fw-bold mb-3 text-white">{{ project.title }}</h3>
+                        <p class="text-white-75 mb-4">{{ project.description|truncatewords:25 }}</p>
+                        
+                        <!-- Action Buttons -->
+                        <div class="row g-2 mb-4">
+                            <div class="col-4">
+                                {% if project.github_url %}
+                                <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-light w-100 rounded-pill p-3">
+                                    <i class="fab fa-github"></i><br><small>Code</small>
+                                </a>
+                                {% else %}
+                                <span class="btn btn-secondary w-100 rounded-pill p-3 text-muted">
+                                    <i class="fas fa-lock"></i><br><small>Private</small>
+                                </span>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {% if project.live_url %}
+                                <a href="{{ project.live_url }}" target="_blank" class="btn btn-primary w-100 rounded-pill p-3">
+                                    <i class="fas fa-globe"></i><br><small>Live</small>
+                                </a>
+                                {% else %}
+                                <span class="btn btn-outline-secondary w-100 rounded-pill p-3 text-muted">
+                                    <i class="fas fa-road"></i><br><small>Coming</small>
+                                </span>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                <a href="{% url 'core:project_detail' project.slug %}" class="btn btn-outline-primary w-100 rounded-pill p-3">
+                                    <i class="fas fa-info-circle"></i><br><small>Details</small>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Tech Stack -->
+                        {% if project.tech_list %}
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for tech in project.tech_list|slice:":5" %}
+                            <span class="badge bg-light text-dark px-3 py-2 rounded-pill fw-semibold">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-8">
+                <div class="glassmorphism p-5 rounded-4 shadow-xl mx-auto max-w-md">
+                    <i class="fas fa-project-diagram fa-3x text-muted mb-4"></i>
+                    <h3 class="text-muted mb-3">No Projects Yet</h3>
+                    <p class="text-muted mb-4">Add your Django/ML projects via admin</p>
+                    <a href="{% url 'admin:index' %}" class="btn btn-primary btn-lg px-5">Add Projects</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav class="mt-8 text-center">
+            <ul class="pagination justify-content-center gap-1">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link rounded-pill px-4" href="?page=1">First</a>
+                </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link fw-bold bg-primary text-white rounded-pill px-4">{{ num }}</span>
+                </li>
+                {% elif num > page_obj.number|add:"-2" and num < page_obj.number|add:"2" %}
+                <li class="page-item">
+                    <a class="page-link rounded-pill px-4" href="?page={{ num }}">{{ num }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link rounded-pill px-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

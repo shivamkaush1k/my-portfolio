@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<h2>Blog</h2>
+{% for post in object_list %}
+    <div class="mb-4">
+        <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+        <p>{{ post.content|truncatewords:25 }}</p>
+    </div>
+{% endfor %}
+{% endblock %}

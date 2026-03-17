@@ -1,7 +1,41 @@
 {% extends "base.html" %}
-{% block title %}{{ object.title }}{% endblock %}
+{% block title %}{{ object.title }} - Shivam Portfolio{% endblock %}
 
 {% block content %}
-<h2>{{ object.title }}</h2>
-<p>{{ object.content }}</p>
+<section class="py-5 bg-dark">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-8">
+        <article class="glassmorphism p-5 rounded-4 shadow-xl">
+          <header class="text-center mb-5">
+            <h1 class="display-3 fw-bold gradient-text mb-4">{{ object.title }}</h1>
+            <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
+              <span class="badge bg-gradient-primary px-3 py-2">{{ object.category|default:"Uncategorized" }}</span>
+              <small class="text-muted">{{ object.created_at|date:"F d, Y" }}</small>
+            </div>
+          </header>
+          
+          <div class="content mb-5">
+            <div class="blog-content">{{ object.content|linebreaksbr }}</div>
+          </div>
+          
+          <footer class="border-top pt-4">
+            <div class="row">
+              <div class="col-md-6">
+                {% if object.author %}
+                <strong>Author:</strong> {{ object.author }}
+                {% endif %}
+              </div>
+              <div class="col-md-6 text-md-end">
+                <a href="{% url 'blogs:blog_list' %}" class="btn btn-outline-light">
+                  ← Back to Blog
+                </a>
+              </div>
+            </div>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

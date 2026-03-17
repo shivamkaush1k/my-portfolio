@@ -8,5 +8,6 @@ urlpatterns = [
     path('projects/', views.ProjectsView.as_view(), name='projects'),
     path('about/', views.AboutView.as_view(), name='about'),
     path('projects/<slug:slug>/', views.ProjectDetailView.as_view(), name='project_detail'),
-    path('download-resume/', views.DownloadResumeView.as_view(), name='download_resume'),  # ✅ Updated
+    path('download-resume/', views.DownloadResumeView.as_view(), name='download_resume'),
+    # ← Remove duplicate home path
 ]

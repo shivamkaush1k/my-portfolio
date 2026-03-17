@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top shadow-lg" id="mainNavbar">
     <div class="container">
-
         <!-- Logo -->
         <a class="navbar-brand fw-bold fs-3 text-white d-flex align-items-center gap-2" href="{% url 'core:home' %}">
             <i class="fas fa-rocket text-primary"></i>
@@ -14,29 +13,34 @@
 
         <!-- Nav Menu -->
         <div class="collapse navbar-collapse" id="navbarNav">
-
             <ul class="navbar-nav ms-auto align-items-lg-center">
-
                 <li class="nav-item">
-                    <a class="nav-link fw-semibold px-3 py-2" href="{% url 'core:home' %}">
+                    <a class="nav-link fw-semibold px-3 py-2 {% if request.resolver_match.url_name == 'home' or request.path == '/' %}active{% endif %}" 
+                       href="{% url 'core:home' %}">
                         <i class="fas fa-home me-1"></i> Home
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link fw-semibold px-3 py-2" href="{% url 'core:projects' %}">
+                    <a class="nav-link fw-semibold px-3 py-2 {% if request.resolver_match.url_name == 'projects' %}active{% endif %}" 
+                       href="{% url 'core:projects' %}">
                         <i class="fas fa-code me-1"></i> Projects
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link fw-semibold px-3 py-2" href="{% url 'core:about' %}">
+                    <a class="nav-link fw-semibold px-3 py-2 {% if request.resolver_match.url_name == 'about' %}active{% endif %}" 
+                       href="{% url 'core:about' %}">
                         <i class="fas fa-user me-1"></i> About
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link fw-semibold px-3 py-2" href="{% url 'contacts:contacts' %}">
+                    <a class="nav-link fw-semibold px-3 py-2 {% if request.resolver_match.namespace == 'blogs' %}active{% endif %}" 
+                       href="{% url 'blogs:blog_list' %}">
+                        <i class="fas fa-blog me-1"></i> Blogs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold px-3 py-2 {% if request.resolver_match.namespace == 'contacts' %}active{% endif %}" 
+                       href="{% url 'contacts:contacts' %}">
                         <i class="fas fa-envelope me-1"></i> Contact
                     </a>
                 </li>
@@ -46,9 +50,7 @@
                         <i class="fas fa-download me-2"></i> Resume
                     </a>
                 </li>
-
             </ul>
-
         </div>
     </div>
 </nav>

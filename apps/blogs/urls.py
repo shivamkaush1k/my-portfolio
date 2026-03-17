@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import BlogListView, BlogDetailView
+from . import views
 
-app_nam="Blogs"
+app_name = 'blogs'  # Namespace matches template
+
 urlpatterns = [
-    path("", BlogListView.as_view(), name="blog_list"),
-    path("<slug:slug>/", BlogDetailView.as_view(), name="blog_detail"),
+    path('', views.BlogListView.as_view(), name='blog_list'),
+    path('<slug:slug>/', views.BlogDetailView.as_view(), name='blog_detail'),  # SLUG not PK
 ]

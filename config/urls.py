@@ -6,10 +6,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.core.urls')),     
-    path('blogs/', include('apps.blogs.urls')),
-    path('contacts/', include('apps.contacts.urls')),  # ← ADD THIS LINE
+    path('blogs/', include('apps.blogs.urls', namespace='blogs')), 
+    path('contacts/', include('apps.contacts.urls', namespace='contacts')),
 ]
 
-# Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

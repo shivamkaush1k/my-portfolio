@@ -1552,6 +1552,7 @@ footer .hover-primary {
 
 
 .cert-icon {
+  
   flex-shrink: 0;
   width: 60px;
   height: 60px;
@@ -1565,6 +1566,7 @@ footer .hover-primary {
 }
 
 .cert-icon i {
+  display:flex;
   font-size: 1.5rem;
   color: var(--primary-light);
   filter: drop-shadow(0 2px 4px rgba(124, 58, 237, 0.5));

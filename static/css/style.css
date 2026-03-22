@@ -33,6 +33,7 @@ html {
 }
 
 html, body {
+  overflow-x: hidden;
   height: 100%;
   background: linear-gradient(135deg, #0f0f23 0%, #1a1b2e 40%, #16213e 100%);
   font-family: system-ui, -apple-system, sans-serif;
@@ -1828,3 +1829,507 @@ footer .hover-primary {
   width: calc(var(--skill-width, 80%)); /* Fallback width */
 }
 
+
+.container,
+.container-fluid {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+section,
+div,
+.row,
+.col,
+[class*="col-"] {
+  min-width: 0;
+}
+
+/* Better media defaults */
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent long text from breaking layout */
+h1, h2, h3, h4, h5, h6,
+p, a, span, li {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Forms */
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+/* Desktop hover effects should not mess up touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .glassmorphism:hover,
+  .stat-card:hover,
+  .skill-card:hover,
+  .project-card:hover,
+  .cert-card:hover,
+  .contact-card:hover,
+  .platform-link:hover,
+  .btn-primary:hover,
+  .btn-light:hover,
+  .cert-button:hover,
+  .timeline-card:hover,
+  .hover-lift:hover,
+  .hover-scale:hover {
+    transform: none !important;
+  }
+
+  .project-card:hover img,
+  .hero-section img:hover,
+  .about-image:hover,
+  .rounded-circle:hover {
+    transform: none !important;
+  }
+}
+
+/* =========================
+   LARGE TABLETS / SMALL LAPTOPS
+========================= */
+@media (max-width: 1199.98px) {
+  .glassmorphism {
+    padding: 2rem !important;
+  }
+
+  .contact-grid {
+    gap: 2rem;
+  }
+
+  .hero-section img {
+    max-height: 420px;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 991.98px) {
+  body {
+    padding-top: 72px;
+  }
+
+  #mainNavbar {
+    padding: 0.6rem 0;
+  }
+
+  .navbar-brand {
+    font-size: 1.35rem;
+  }
+
+  #navbarNav,
+  #navbarNav.show {
+    margin-top: 0.75rem;
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .navbar-nav {
+    gap: 0.35rem;
+  }
+
+  .nav-link {
+    padding: 0.9rem 1rem !important;
+    font-size: 0.9rem;
+  }
+
+  .hero-section {
+    min-height: auto;
+    padding: 5rem 0 4rem;
+    text-align: center;
+  }
+
+  .hero-section .container,
+  .contact-section .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero-section img {
+    max-height: 360px;
+    margin: 0 auto 2rem;
+  }
+
+  .row.align-items-center {
+    row-gap: 2rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contact-info,
+  .contact-form {
+    padding: 2rem;
+  }
+
+  .timeline-container {
+    padding: 3rem 0;
+  }
+
+  .timeline-container::before,
+  .timeline-container::after {
+    left: 22px;
+  }
+
+  .timeline-item {
+    margin: 2.5rem 0;
+  }
+
+  .timeline-item::before {
+    left: 22px;
+    top: 28px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .timeline-card {
+    width: calc(100% - 3.5rem);
+    margin-left: 3.5rem !important;
+    margin-right: 0 !important;
+    padding: 1.25rem;
+  }
+
+  .cert-actions {
+    text-align: left;
+  }
+
+  .project-card img {
+    height: 220px;
+  }
+
+  footer {
+    padding: 3rem 0 2rem !important;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 767.98px) {
+  :root {
+    --radius: 16px;
+    --spacing: 16px;
+  }
+
+  body {
+    padding-top: 68px;
+    line-height: 1.5;
+  }
+
+  .hero-section,
+  .contact-hero {
+    padding: 4rem 0 3rem;
+    min-height: auto;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    line-height: 1.15;
+  }
+
+  .hero-subtitle,
+  .lead.text-muted,
+  .lead-muted {
+    font-size: 1rem !important;
+    line-height: 1.7;
+  }
+
+  .display-3 {
+    font-size: 2.1rem !important;
+  }
+
+  .display-5 {
+    font-size: 1.55rem !important;
+  }
+
+  .hero-section h1 {
+    font-size: 2rem !important;
+    line-height: 1.15;
+  }
+
+  .hero-section p {
+    font-size: 0.98rem;
+  }
+
+  .row.align-items-center {
+    flex-direction: column-reverse;
+  }
+
+  .row.g-5 > div,
+  .g-5 > div {
+    margin-bottom: 1.25rem;
+  }
+
+  .glassmorphism,
+  .contact-info,
+  .contact-form,
+  .stat-card,
+  .skill-card,
+  .project-card,
+  .cert-card,
+  .timeline-card {
+    padding: 1.25rem !important;
+    border-radius: 16px;
+  }
+
+  .btn-primary,
+  .btn-light,
+  .cert-button,
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.9rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .hero-buttons,
+  .d-flex.gap-3 {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem !important;
+  }
+
+  .hero-buttons > *,
+  .d-flex.gap-3 > * {
+    width: 100%;
+  }
+
+  .hero-section img {
+    width: 100%;
+    max-width: 320px;
+    max-height: none;
+    margin: 0 auto 1.5rem;
+    border-radius: 20px;
+  }
+
+  .rounded-circle {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .about-image {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .stat-card h1, .stat-card h2, .stat-card h3,
+  .skill-card h1, .skill-card h2, .skill-card h3,
+  .project-card h1, .project-card h2, .project-card h3,
+  .cert-card h1, .cert-card h2, .cert-card h3,
+  .cert-title h4 {
+    font-size: 1.1rem;
+  }
+
+  .stat-card h3.counting {
+    font-size: 2.2rem !important;
+  }
+
+  .project-card img,
+  .card-img-top {
+    height: 190px;
+  }
+
+  .skill-tag,
+  .badge {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.75rem;
+  }
+
+  .cert-header {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .cert-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .cert-icon i {
+    font-size: 1.2rem;
+  }
+
+  .cert-provider {
+    font-size: 0.95rem;
+  }
+
+  .contact-card {
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 0.85rem;
+  }
+
+  .contact-card i {
+    width: 38px;
+    font-size: 1.2rem;
+  }
+
+  .contact-card strong {
+    font-size: 0.95rem;
+  }
+
+  .form-input,
+  .form-control {
+    font-size: 1rem;
+    padding: 0.95rem 1rem;
+    border-radius: 14px;
+  }
+
+  .textarea,
+  .form-input.textarea {
+    min-height: 110px;
+  }
+
+  .notification {
+    right: 12px;
+    left: 12px;
+    top: 12px;
+    width: auto;
+    padding: 1rem 1.25rem;
+  }
+
+  .footer-back-to-top {
+    right: 1rem;
+    bottom: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+
+  .platform-link {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .platform-link i {
+    font-size: 1.1rem;
+  }
+
+  footer h5::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 575.98px) {
+  .container,
+  .container-sm,
+  .container-fluid {
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .fa-rocket {
+    font-size: 1.2rem;
+  }
+
+  .navbar-toggler {
+    width: 42px;
+    height: 42px;
+  }
+
+  .navbar-toggler-icon {
+    width: 20px;
+    height: 18px;
+  }
+
+  .hero-section {
+    padding-top: 3.5rem;
+  }
+
+  .hero-title,
+  .hero-section h1 {
+    font-size: 1.75rem !important;
+  }
+
+  .hero-subtitle,
+  .lead.text-muted {
+    font-size: 0.95rem !important;
+  }
+
+  .glassmorphism {
+    padding: 1rem !important;
+  }
+
+  .stat-card,
+  .skill-card,
+  .project-card,
+  .cert-card {
+    margin-bottom: 1rem;
+  }
+
+  .project-card img,
+  .card-img-top {
+    height: 170px;
+  }
+
+  .timeline-container::before,
+  .timeline-container::after {
+    left: 16px;
+  }
+
+  .timeline-item::before {
+    left: 16px;
+  }
+
+  .timeline-card {
+    width: calc(100% - 2.5rem);
+    margin-left: 2.5rem !important;
+    padding: 1rem !important;
+  }
+
+  .timeline-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .timeline-card h6 {
+    font-size: 0.9rem;
+  }
+
+  .timeline-card p {
+    font-size: 0.88rem;
+  }
+
+  .contact-info,
+  .contact-form {
+    padding: 1.25rem;
+  }
+
+  .badge,
+  .skill-tag {
+    border-radius: 999px;
+  }
+
+  .cert-button,
+  .btn-primary,
+  .btn-light,
+  .submit-btn {
+    border-radius: 14px;
+  }
+}

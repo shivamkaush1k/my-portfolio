@@ -163,32 +163,70 @@ document.addEventListener('DOMContentLoaded', function() {
   const heart = document.querySelector('footer .fa-heart');
   if (heart) heart.style.animation = 'heartbeat 1.5s ease-in-out infinite';
 
-  // CONTACT FORM (if present)
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    const submitBtn = document.querySelector('.submit-btn');
-    const inputs = contactForm.querySelectorAll('.form-input');
-    inputs.forEach(input => {
-      input.addEventListener('input', () => {
-        input.classList.toggle('valid', input.value.length > 0);
-      });
-    });
-    contactForm.addEventListener('submit', e => {
-      e.preventDefault();
-      submitBtn.classList.add('loading');
-      submitBtn.disabled = true;
-      // Simulate (replace with fetch/Django)
-      setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-        // Reset
-        contactForm.reset();
-        inputs.forEach(i => i.classList.remove('valid'));
-      }, 2000);
-    });
+// CONTACT FORM - Working Django AJAX (replaces broken version)
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  // Get CSRF token helper
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
   }
 
-  // PROJECT CARDS 3D TILT (if present)
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    console.log('🚀 Form submitting...'); // Debug
+    
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+
+    try {
+      const formData = new FormData(contactForm);
+      
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': getCookie('csrftoken')
+        }
+      });
+
+      console.log('📡 Response status:', response.status); // Debug
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        contactForm.reset();
+        showNotification('Message sent successfully! 🚀', 'success');
+        // Scroll to top to show Django messages too
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else {
+        throw new Error(data.message || 'Server error');
+      }
+    } catch (error) {
+      console.error('❌ Form error:', error);
+      showNotification('Submission failed. Please try again.', 'error');
+    } finally {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+    }
+  });
+}
+
+
   document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();

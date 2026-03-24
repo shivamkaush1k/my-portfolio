@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Contact(models.Model):
@@ -7,14 +8,13 @@ class Contact(models.Model):
     subject = models.CharField(max_length=200, blank=True)
     message = models.TextField()
     ip_address = models.GenericIPAddressField(null=True, blank=True)
-    is_read = models.BooleanField(default=False)
-    sent_at = models.DateTimeField(auto_now_add=True)
+    sent_at = models.DateTimeField(default=timezone.now)
+    is_read = models.BooleanField(default=False, verbose_name="Marked as read")
 
     class Meta:
         ordering = ["-sent_at"]
-        indexes = [
-            models.Index(fields=["sent_at"]),
-        ]
+        verbose_name = "Contact Message"
+        verbose_name_plural = "Contact Messages"
 
     def __str__(self):
-        return f"{self.name} - {self.email}"
+        return f"{self.name} ({self.email}) - {self.subject or 'No subject'}"

@@ -125,3 +125,10 @@ if not DEBUG:
     X_FRAME_OPTIONS = "DENY"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+import os
+
+# Production-ready (dynamic for Render)
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-portfolio-i5k0.onrender.com']
+if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
+    ALLOWED_HOSTS.append(os.getenv('RENDER_EXTERNAL_HOSTNAME'))

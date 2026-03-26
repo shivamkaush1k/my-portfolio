@@ -9,13 +9,16 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY is not set in environment variables.")
 
+
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.getenv("ALLOWED_HOSTS",
-                           "127.0.0.1,localhost,.vercel.app",
-                           "https://sh1vam-portfolio-d2ihubvda-shivamkaush1ks-projects.vercel.app/").split(",")
+    for host in os.getenv(
+        "ALLOWED_HOSTS",
+        "127.0.0.1,localhost,.vercel.app",
+        "https://sh1vam-portfolio-d2ihubvda-shivamkaush1ks-projects.vercel.app/")
+        .split(",")
     if host.strip()
 ]
 

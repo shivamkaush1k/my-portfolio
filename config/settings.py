@@ -1,8 +1,3 @@
-"""
-Django settings for config project.
-Production-ready portfolio configuration.
-"""
-
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -14,7 +9,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY is not set in environment variables.")
 
-DEBUG = os.getenv("DEBUG", "True").lower() == "true"
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = [
     host.strip()
@@ -93,12 +88,13 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
-EMAIL_BACKEND = os.getenv(
-    "EMAIL_BACKEND",
-    "django.core.mail.backends.smtp.EmailBackend"
-)
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() == "true"
@@ -110,8 +106,6 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "")
 CONTACT_EMAIL = os.getenv("CONTACT_EMAIL", EMAIL_HOST_USER or "")
 
 if not DEBUG:
-    if not SECRET_KEY:
-        raise ValueError("SECRET_KEY is required in production.")
     if not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD or not CONTACT_EMAIL:
         raise ValueError("Production email settings are incomplete.")
 
@@ -125,10 +119,3 @@ if not DEBUG:
     X_FRAME_OPTIONS = "DENY"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-import os
-
-# Production-ready (dynamic for Render)
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-portfolio-i5k0.onrender.com']
-if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
-    ALLOWED_HOSTS.append(os.getenv('RENDER_EXTERNAL_HOSTNAME'))
